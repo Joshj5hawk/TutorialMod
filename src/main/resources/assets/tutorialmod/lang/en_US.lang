@@ -1,3 +1,8 @@
-item.crusher.name=Crusher
-tile.quartz.name=Quartz Block
-tile.counter1x1Black.name=Black Counter(1x1)
+item.copperIngot.name=Copper Ingot
+
+tile.copperOre.name=Copper Ore
+tile.tinOre.name=Tin Ore
+tile.zincOre.name=Zinc Ore
+tile.copperBlock.name=Copper Block
+
+itemGroup.TutorialMod= Tutorial Mod Items/Blocks
