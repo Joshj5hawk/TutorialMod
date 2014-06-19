@@ -5,10 +5,10 @@ import net.minecraft.block.material.Material;
 
 import com.joshj5hawk.main.TutorialMod;
 
-public class CopperBlock extends Block
+public class MetalBlock extends Block
 {
 
-	public CopperBlock(Material mat) {
+	public MetalBlock(Material mat) {
 		super(mat);
 		this.setHardness(3.0F);
 		this.setResistance(5.0F);

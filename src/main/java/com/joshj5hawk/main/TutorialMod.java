@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-import com.joshj5hawk.block.CopperBlock;
+import com.joshj5hawk.block.MetalBlock;
 import com.joshj5hawk.block.OreBlock;
 import com.joshj5hawk.item.TMItem;
 import com.joshj5hawk.lib.Strings;
@@ -26,7 +26,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TutorialMod 
 {
 	//Items
+	public static Item itemTinCog;
+	//Ingots
 	public static Item itemCopperIngot;
+	public static Item itemTinIngot;
+	public static Item itemZincIngot;
 	//Blocks
 	//Ores
 	public static Block oreCopperOre;
@@ -34,6 +38,8 @@ public class TutorialMod
 	public static Block oreZincOre;
 	//Blocks
 	public static Block blockCopperBlock;
+	public static Block blockTinBlock;
+	public static Block blockZincBlock;
 	
 	TMWorldGen eventWorldGen = new TMWorldGen();
 	
@@ -54,9 +60,15 @@ public class TutorialMod
 		
 		//ItemInit
 		itemCopperIngot = new TMItem().setUnlocalizedName("copperIngot");
-		
+		itemTinIngot = new TMItem().setUnlocalizedName("tinIngot");
+		itemZincIngot = new TMItem().setUnlocalizedName("zincIngot");
+		itemTinCog = new TMItem().setUnlocalizedName("tinCog");
 		//ItemRegister
 		GameRegistry.registerItem(itemCopperIngot, "copperIngot");
+		GameRegistry.registerItem(itemTinIngot, "tinIngot");
+		GameRegistry.registerItem(itemZincIngot, "zincIngot");	
+		GameRegistry.registerItem(itemTinCog, "tinCog");
+		
 		
 		//BlockInit
 		//Ores
@@ -68,12 +80,16 @@ public class TutorialMod
 		oreRhodiumOre = new OreBlock(Material.rock).setBlockName("rhodiumOre").setBlockTextureName(Strings.modid + ":" + "rhodiumOre");*/
 		
 		//Metal Blocks
-		blockCopperBlock = new CopperBlock(Material.iron).setBlockName("copperBlock").setBlockTextureName(Strings.modid + ":" + "copperBlock");
+		blockCopperBlock = new MetalBlock(Material.iron).setBlockName("copperBlock").setBlockTextureName(Strings.modid + ":" + "copperBlock");
+		blockTinBlock = new MetalBlock(Material.iron).setBlockName("tinBlock").setBlockTextureName(Strings.modid + ":" + "tinBlock");
+		blockZincBlock = new MetalBlock(Material.iron).setBlockName("zincBlock").setBlockTextureName(Strings.modid + ":" + "zincBlock");
 		//BlockRegister
 		GameRegistry.registerBlock(oreCopperOre, "copperOre");
 		GameRegistry.registerBlock(oreTinOre, "tinOre");
 		GameRegistry.registerBlock(oreZincOre, "zincOre");
 		GameRegistry.registerBlock(blockCopperBlock, "copperBlock");
+		GameRegistry.registerBlock(blockTinBlock, "tinBlock");
+		GameRegistry.registerBlock(blockZincBlock, "zincBlock");
 		
 		//Spawning
 		GameRegistry.registerWorldGenerator(eventWorldGen, 0);

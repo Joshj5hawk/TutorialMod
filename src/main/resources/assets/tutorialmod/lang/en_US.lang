@@ -1,8 +1,14 @@
 item.copperIngot.name=Copper Ingot
+item.tinIngot.name=Tin Ingot
+item.zincIngot.name=Zinc Ingot
+item.tinCog.name=Tin Cog
 
 tile.copperOre.name=Copper Ore
 tile.tinOre.name=Tin Ore
 tile.zincOre.name=Zinc Ore
-tile.copperBlock.name=Copper Block
+
+tile.copperBlock.name=Block of Copper
+tile.tinBlock.name=Block of Tin
+tile.zincBlock.name=Block of Zinc 
 
 itemGroup.TutorialMod= Tutorial Mod Items/Blocks

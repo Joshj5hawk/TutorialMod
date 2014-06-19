@@ -16,5 +16,7 @@ public class TMSmeltingRecipies
 	public static void smeltingRecipies()
 	{
 		GameRegistry.addSmelting(TutorialMod.oreCopperOre, new ItemStack(TutorialMod.itemCopperIngot), 0.0F);
+		GameRegistry.addSmelting(TutorialMod.oreTinOre, new ItemStack(TutorialMod.itemTinIngot), 0.0F);
+		GameRegistry.addSmelting(TutorialMod.oreZincOre, new ItemStack(TutorialMod.itemZincIngot), 0.0F);
 	}
 }
