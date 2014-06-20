@@ -1,4 +1,4 @@
-package com.joshj5hawk.worldgen;
+package com.joshj5hawk.handler;
 
 import java.util.Random;
 
@@ -35,9 +35,10 @@ public class TMWorldGen implements IWorldGenerator
 	private void generateSurface(World world, Random random, int x, int z) 
 	{
 		//this.addOreSpawn(BLOCK, world, random, x, z, maxX, MaxZ, maxVeinSize, percentChanceToSpawn, minY, maxY);
-		this.addOreSpawn(TutorialMod.oreCopperOre, world, random, x, z, 16, 16, 4+random.nextInt(6), 25, 38, 100);
-		this.addOreSpawn(TutorialMod.oreTinOre, world, random, x, z, 16, 16, 4+random.nextInt(6), 25, 38, 100);
-		this.addOreSpawn(TutorialMod.oreZincOre, world, random, x, z, 16, 16, 4+random.nextInt(6), 25, 38, 100);
+		this.addOreSpawn(TutorialMod.oreCopperOre, world, random, x, z, 16, 16, 4 + random.nextInt(6), 25, 38, 100);
+		this.addOreSpawn(TutorialMod.oreTinOre, world, random, x, z, 16, 16, 4 + random.nextInt(6), 25, 38, 100);
+		this.addOreSpawn(TutorialMod.oreZincOre, world, random, x, z, 16, 16, 4 + random.nextInt(6), 25, 38, 100);
+		this.addOreSpawn(TutorialMod.oreTopazOre, world, random, x, z, 16, 16, 4 + random.nextInt(10), 50, 1, 100);
 	}
 
 	private void generateNether(World world, Random random, int x, int z) 

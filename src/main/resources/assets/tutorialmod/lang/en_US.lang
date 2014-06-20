@@ -1,14 +1,29 @@
 item.copperIngot.name=Copper Ingot
 item.tinIngot.name=Tin Ingot
 item.zincIngot.name=Zinc Ingot
+item.topazGem.name=Topaz Gem
 item.tinCog.name=Tin Cog
+item.ironDisk.name=Iron Disk
+item.ironWasher.name=Iron Washer
+item.ironHammer.name=Iron Hammer
+item.ironPunch.name=Iron Punch
+item.treePitch.name=Tree Pitch
+item.copperSword.name=Copper Sword
+item.copperAxe.name=Copper Axe
+item.copperShovel.name=Copper Shovel
+item.copperHoe.name=Copper Hoe
+item.copperPickaxe.name=Copper Pickaxe
+
 
 tile.copperOre.name=Copper Ore
 tile.tinOre.name=Tin Ore
 tile.zincOre.name=Zinc Ore
+tile.topazOre.name=TopazOre
 
 tile.copperBlock.name=Block of Copper
 tile.tinBlock.name=Block of Tin
 tile.zincBlock.name=Block of Zinc 
+tile.topazBlock.name=Block of Topaz
 
+tile.slipperyStone.name=SlipperyStone
 itemGroup.TutorialMod= Tutorial Mod Items/Blocks
