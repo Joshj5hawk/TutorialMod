@@ -26,4 +26,6 @@ tile.zincBlock.name=Block of Zinc
 tile.topazBlock.name=Block of Topaz
 
 tile.slipperyStone.name=SlipperyStone
+tile.tutOvenIdle.name=Tutorial Oven
+
 itemGroup.TutorialMod= Tutorial Mod Items/Blocks

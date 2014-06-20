@@ -7,11 +7,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.common.util.EnumHelper;
 
+import com.joshj5hawk.block.OreBlock;
 import com.joshj5hawk.block.SlipperyStone;
 import com.joshj5hawk.block.TMBlock;
-import com.joshj5hawk.block.OreBlock;
+import com.joshj5hawk.block.TutOven;
 import com.joshj5hawk.handler.TMCrafting;
 import com.joshj5hawk.handler.TMFuelHandler;
+import com.joshj5hawk.handler.TMGUIHandler;
 import com.joshj5hawk.handler.TMWorldGen;
 import com.joshj5hawk.item.CopperAxe;
 import com.joshj5hawk.item.CopperHoe;
@@ -24,13 +26,16 @@ import com.joshj5hawk.item.TMItem;
 import com.joshj5hawk.lib.Strings;
 import com.joshj5hawk.recipies.TMCraftingRecipies;
 import com.joshj5hawk.recipies.TMSmeltingRecipies;
+import com.joshj5hawk.tileentity.TileEntityTutOven;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -38,6 +43,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Mod(modid = Strings.modid, version = Strings.version)
 public class TutorialMod 
 {
+	
+	@Instance(Strings.modid)
+	public static TutorialMod instance;
 	//ToolMat
 	public static ToolMaterial copperMat = EnumHelper.addToolMaterial("copperMat", 2, 750, 6.0F, 2.0F, 10);
 	
@@ -62,6 +70,10 @@ public class TutorialMod
 	
 	//Blocks
 	public static Block blockSlipperyStone;
+	
+	public static Block blockTutOvenIdle;
+	public static Block blockTutOvenActive;
+	public static final int guiIDTutOven = 0;
 	//Ores
 	public static Block oreCopperOre;
 	public static Block oreTinOre;
@@ -128,6 +140,9 @@ public class TutorialMod
 		
 		
 		//BlockInit
+		//Machines
+		blockTutOvenIdle = new TutOven(false).setBlockName("tutOvenIdle")/*.setBlockTextureName(Strings.modid + ":" + "tutOvenIdle")*/.setCreativeTab(tabTutorialMod);
+		blockTutOvenActive = new TutOven(true).setBlockName("tutOvenActive")/*.setBlockTextureName(Strings.modid + ":" + "tutOvenActive")*/.setLightLevel(0.625F);
 		blockSlipperyStone = new SlipperyStone(Material.rock).setBlockName("slipperyStone").setBlockTextureName(Strings.modid + ":" + "slipperyStone");
 		//Ores
 		oreCopperOre = new OreBlock(Material.rock).setBlockName("copperOre").setBlockTextureName(Strings.modid + ":" + "copperOre");
@@ -153,6 +168,8 @@ public class TutorialMod
 		GameRegistry.registerBlock(blockZincBlock, "zincBlock");
 		GameRegistry.registerBlock(blockTopazBlock, "topazBlock");
 		GameRegistry.registerBlock(blockSlipperyStone, "slipperyStone");
+		GameRegistry.registerBlock(blockTutOvenIdle, "tutOvenIdle");
+		GameRegistry.registerBlock(blockTutOvenActive, "tutOvenActive");
 		
 		//Spawning
 		GameRegistry.registerWorldGenerator(eventWorldGen, 0);
@@ -164,7 +181,10 @@ public class TutorialMod
 	public void Init(FMLInitializationEvent event)
 	{
 		
+		GameRegistry.registerTileEntity(TileEntityTutOven.class, "tutOven");
+		
 		FMLCommonHandler.instance().bus().register(new TMCrafting());
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new TMGUIHandler());
 		//Crafting
 		TMCraftingRecipies.mainRegistry();
 		TMSmeltingRecipies.mainRegistry();
