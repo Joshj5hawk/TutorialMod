@@ -9,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 import com.joshj5hawk.block.TutOven;
@@ -26,7 +28,7 @@ public class TileEntityTutOven extends TileEntity implements ISidedInventory
 	
 	private ItemStack[] slots = new ItemStack [3];
 	
-	public int furnaceSpeed = 150;
+	public int furnaceSpeed = 100;
 	public int burnTime;
 	public int currentItemBurnTime;
 	public int cookTime;
@@ -240,46 +242,40 @@ public class TileEntityTutOven extends TileEntity implements ISidedInventory
 		}
 	}
 	
-	public boolean canSmelt()
-	{
-		if(this.slots[0] == null)
-		{
+	public boolean canSmelt() {
+		if (this.slots[0] == null) {
 			return false;
-		}
-		else
-		{
-			//Do I want 'Nilla recipes? (Comment out for No)
-			ItemStack is = FurnaceRecipes.smelting().getSmeltingResult(this.slots[0]);
-			
-			if(is == null) return false;
+		}else{
+			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.slots[0]);
+
+			if(itemstack == null) return false;
 			if(this.slots[2] == null) return true;
-			if(this.slots[2].isItemEqual(is)) return false;
-			
-			int result = this.slots[2].stackSize + is.stackSize;
-			
-			return (result <= getInventoryStackLimit() && result <= is.getMaxStackSize());
-			
+			if(!this.slots[2].isItemEqual(itemstack)) return false;
+
+			int result = this.slots[2].stackSize + itemstack.stackSize;
+
+			return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
 		}
 	}
 	
-	public void smeltItem()
+	public void smeltItem() 
 	{
-		if(this.canSmelt())
+		if(this.canSmelt()) 
 		{
 			ItemStack is = FurnaceRecipes.smelting().getSmeltingResult(this.slots[0]);
-		
-			if(this.slots[2] == null)
+
+			if(this.slots[2] == null) 
 			{
 				this.slots[2] = is.copy();
 			}
-			else if(this.slots[2].isItemEqual(is))
+			else if(this.slots[2].isItemEqual(is)) 
 			{
 				this.slots[2].stackSize += is.stackSize;
 			}
-		
+
 			this.slots[0].stackSize--;
-		
-			if(this.slots[0].stackSize <= 0)
+
+			if(this.slots[0].stackSize <= 0) 
 			{
 				this.slots[0] = null;
 			}
@@ -318,5 +314,60 @@ public class TileEntityTutOven extends TileEntity implements ISidedInventory
 	public int getCookProgressScaled(int i)
 	{
 		return this.cookTime * i / this.furnaceSpeed;
+	}
+	
+	public void readFromNBT(NBTTagCompound nbt)
+	{
+		super.readFromNBT(nbt);
+		
+		NBTTagList list = nbt.getTagList("Items", 10);
+		this.slots = new ItemStack[this.getSizeInventory()];
+		
+		for(int i = 0; i < list.tagCount(); i++)
+		{
+			NBTTagCompound compound = (NBTTagCompound) list.getCompoundTagAt(i);
+			byte b = compound.getByte("Slot");
+			
+			if(b >= 0 && b < this.slots.length)
+			{
+				this.slots[b] = ItemStack.loadItemStackFromNBT(compound);
+			}
+		}
+		
+		this.burnTime = (int)nbt.getShort("BurnTime");
+		this.cookTime = (int)nbt.getShort("CookTime");
+		this.currentItemBurnTime = (int)nbt.getShort("CurrentBurnTime");
+		
+		if(nbt.hasKey("CustomName"))
+		{
+			this.localizedName = nbt.getString("CustomName");
+		}
+	}
+	
+	public void writeToNBT(NBTTagCompound nbt)
+	{
+		super.writeToNBT(nbt);
+		
+		nbt.setShort("BurnTime", (short)this.burnTime);
+		nbt.setShort("CookTime", (short)this.cookTime);
+		nbt.setShort("CurrentBurnTime", (short)this.currentItemBurnTime);
+		
+		NBTTagList list = new NBTTagList();
+		 for(int i = 0; i < this.slots.length; i++)
+		 {
+			 if(this.slots[i] != null)
+			 {
+				 NBTTagCompound compound = new NBTTagCompound();
+				 compound.setByte("Slot", (byte)i);
+				 this.slots[i].writeToNBT(compound);
+				 list.appendTag(compound);
+			 }
+		 }
+		nbt.setTag("Items", list);
+		
+		if(this.hasCustomInventoryName())
+		{
+			nbt.setString("CustomName", this.localizedName);
+		}
 	}
 }

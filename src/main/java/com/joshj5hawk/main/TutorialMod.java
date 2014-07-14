@@ -141,8 +141,8 @@ public class TutorialMod
 		
 		//BlockInit
 		//Machines
-		blockTutOvenIdle = new TutOven(false).setBlockName("tutOvenIdle")/*.setBlockTextureName(Strings.modid + ":" + "tutOvenIdle")*/.setCreativeTab(tabTutorialMod);
-		blockTutOvenActive = new TutOven(true).setBlockName("tutOvenActive")/*.setBlockTextureName(Strings.modid + ":" + "tutOvenActive")*/.setLightLevel(0.625F);
+		blockTutOvenIdle = new TutOven(false).setBlockName("tutOvenIdle")/*.setBlockTextureName(Strings.modid + ":" + "tutOvenIdle")*/.setCreativeTab(tabTutorialMod).setHardness(3.5F);
+		blockTutOvenActive = new TutOven(true).setBlockName("tutOvenActive")/*.setBlockTextureName(Strings.modid + ":" + "tutOvenActive")*/.setLightLevel(0.625F).setHardness(3.5F);
 		blockSlipperyStone = new SlipperyStone(Material.rock).setBlockName("slipperyStone").setBlockTextureName(Strings.modid + ":" + "slipperyStone");
 		//Ores
 		oreCopperOre = new OreBlock(Material.rock).setBlockName("copperOre").setBlockTextureName(Strings.modid + ":" + "copperOre");
