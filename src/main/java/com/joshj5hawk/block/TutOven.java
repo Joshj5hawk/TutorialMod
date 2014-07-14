@@ -24,10 +24,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TutOven extends BlockContainer
 {
 	private final boolean isActive;
+	
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
+	
+	private static boolean keepInventory;
 	
 	public TutOven(boolean isActive) 
 	{
@@ -145,6 +148,31 @@ public class TutOven extends BlockContainer
 			((TileEntityTutOven)world.getTileEntity(x, y, z)).setGuiDisplayName(is.getDisplayName());
 		}
 	}
-	
+
+	public static void updateTutOvenBlockState(boolean active, World worldObj, int xCoord, int yCoord, int zCoord) 
+	{
+		int i = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+		
+		TileEntity te = worldObj.getTileEntity(xCoord, yCoord, zCoord);
+		keepInventory = true;
+		
+		if(active)
+		{
+			worldObj.setBlock(xCoord, yCoord, zCoord, TutorialMod.blockTutOvenActive);
+		}
+		else
+		{
+			worldObj.setBlock(xCoord, yCoord, zCoord, TutorialMod.blockTutOvenIdle);
+		}
+		keepInventory = false;
+		
+		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, i, 2);
+		
+		if(te != null)
+		{
+			te.validate();
+			worldObj.setTileEntity(xCoord, yCoord, zCoord, te);
+		}
+	}
 	
 }
